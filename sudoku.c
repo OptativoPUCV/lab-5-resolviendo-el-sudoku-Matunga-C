@@ -107,7 +107,15 @@ int is_final(Node* n){
 }
 
 Node* DFS(Node* initial, int* cont){
-  return NULL;
+    List* stack = createStack(); // crear una nueva pila
+    push(stack, initial); // agregar el nodo inicial a la pila
+    Node* current; // crear un nuevo nodo
+    while(!is_empty(stack)) { // mientras la pila no este vacia
+        current = top(stack); // obtener el nodo actual
+        pop(stack); // eliminar el nodo actual de la pila
+        (*cont)++; // incrementar el contador
+        
+    return NULL;
 }
 
 
