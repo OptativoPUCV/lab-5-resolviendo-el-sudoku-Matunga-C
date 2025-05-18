@@ -52,6 +52,13 @@ int is_valid(Node* n){
     int row[9][10] = {0}; // filas
     int col[9][10] = {0}; // columnas
     int box[3][3][10] = {0}; // submatrices de 3x3
+    for(i = 0; i < 9; i++) { // recorrer el sudoku
+        for(j = 0; j < 9; j++) { // recorrer el sudoku
+            if(n->sudo[i][j] != 0) { // si la celda no es 0, es decir, no es vacia
+                k = n->sudo[i][j]; // asignar el valor de la celda a k
+            }
+          }    
+    }
     return 1;
 }
 
