@@ -43,31 +43,38 @@ void print_node(Node* n){
     printf("\n");
 }
 
+/*- No se repitan números en las filas
+- No se repitan números en las columnas
+- No se repitan números en las submatrices de 3x3*/
+
 int is_valid(Node* n){
-  
+    int i,j,k;
+    int row[9][10] = {0}; // filas
+    int col[9][10] = {0}; // columnas
+    int box[3][3][10] = {0}; // submatrices de 3x3
     return 1;
 }
 
 
 List* get_adj_nodes(Node* n){
-    List* list=createList();
-    Node* aux;
-    int i,j,k;
-    for(i=0;i<9;i++){
-        for(j=0;j<9;j++){
-            if(n->sudo[i][j]==0){
-                for(k=1;k<=9;k++){
-                    aux=copy(n);
-                    aux->sudo[i][j]=k;
-                    if(is_valid(aux)){
-                        pushBack(list,aux);
+    List* list=createList(); // crear una nueva lista
+    Node* aux; // crear un nuevo nodo
+    int i, j, k; // variables para recorrer el sudoku
+    for(i = 0; i < 9; i++) { // recorrer el sudoku
+        for(j = 0; j < 9; j++) { // recorrer el sudoku
+            if(n->sudo[i][j] == 0) { // si la celda es 0, es decir, vacia
+                for(k = 1; k <= 9; k++) { // probar con los numeros del 1 al 9
+                    aux = copy(n); // copiar el nodo actual
+                    aux->sudo[i][j] = k; // asignar el nuevo valor
+                    if(is_valid(aux)) { // si es valido, agregar a la lista
+                        pushBack(list, aux); // agregar el nodo a la lista
                     }
                 }
-                return list;
+                return list; // retornar la lista
             }
         }
     }
-    return list;
+    return list; // si no hay celdas vacias, retornar la lista vacia
 }
 
 

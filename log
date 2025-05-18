@@ -19,3 +19,29 @@ Sun, May 18, 2025  2:06:54 AM:
  tests:  2|4
 total_score: 15/70
 ca6b3b5
+Sun, May 18, 2025  2:15:59 AM: 
+ sudoku.c | 35 +++++++++++++++++++++--------------
+ 1 file changed, 21 insertions(+), 14 deletions(-)
+Compilation failed
+In file included from test.c:5:0:
+sudoku.c: In function 'is_valid':
+sudoku.c:54:9: error: unused variable 'box' [-Werror=unused-variable]
+     int box[3][3][10] = {0}; // submatrices de 3x3
+         ^~~
+sudoku.c:53:9: error: unused variable 'col' [-Werror=unused-variable]
+     int col[9][10] = {0}; // columnas
+         ^~~
+sudoku.c:52:9: error: unused variable 'row' [-Werror=unused-variable]
+     int row[9][10] = {0}; // filas
+         ^~~
+sudoku.c:51:13: error: unused variable 'k' [-Werror=unused-variable]
+     int i,j,k;
+             ^
+sudoku.c:51:11: error: unused variable 'j' [-Werror=unused-variable]
+     int i,j,k;
+           ^
+sudoku.c:51:9: error: unused variable 'i' [-Werror=unused-variable]
+     int i,j,k;
+         ^
+cc1.exe: all warnings being treated as errors
+9691a89
