@@ -117,7 +117,17 @@ Node* DFS(Node* initial, int* cont){
         if(is_final(current)) { // si el nodo actual es la solucion
             return current; // retornar el nodo actual
         }
-        
+        List* adj = get_adj_nodes(current); // obtener los nodos adyacentes
+        Node* aux; // crear un nuevo nodo
+        aux = first(adj); // obtener el primer nodo adyacente
+        while(aux != NULL) { // mientras haya nodos adyacentes
+            if(is_valid(aux)) { // si el nodo adyacente es valido
+                push(stack, aux); // agregar el nodo adyacente a la pila
+            }
+            aux = next(adj); // obtener el siguiente nodo adyacente
+        }
+        clean(adj); // limpiar la lista de nodos adyacentes
+    }
     return NULL;
 }
 
