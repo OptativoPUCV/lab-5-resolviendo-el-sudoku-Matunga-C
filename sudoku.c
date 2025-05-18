@@ -43,63 +43,57 @@ void print_node(Node* n){
     printf("\n");
 }
 
-/*- No se repitan números en las filas
-- No se repitan números en las columnas
-- No se repitan números en las submatrices de 3x3*/
-
 int is_valid(Node* n){
     int i,j,k;
-    int row[9][10] = {0}; // filas
-    int col[9][10] = {0}; // columnas
-    int box[3][3][10] = {0}; // submatrices de 3x3
-    for(i = 0; i < 9; i++) { // recorrer el sudoku
-        for(j = 0; j < 9; j++) { // recorrer el sudoku
-            if(n->sudo[i][j] != 0) { // si la celda no es 0, es decir, no es vacia
-                k = n->sudo[i][j]; // asignar el valor de la celda a k
-                if(row[i][k] || col[j][k] || box[i/3][j/3][k]) { // si ya existe el numero en la fila, columna o submatriz
-                    return 0; // retornar 0
+    int row[9][10] = {0};
+    int col[9][10] = {0};
+    int box[3][3][10] = {0};
+    for(i = 0; i < 9; i++) {
+        for(j = 0; j < 9; j++) {
+            if(n->sudo[i][j] != 0) {
+                k = n->sudo[i][j];
+                if(row[i][k] || col[j][k] || box[i/3][j/3][k]) {
+                    return 0;
                 }
             }
-            if(n->sudo[i][j] != 0) { // si la celda no es 0, es decir, no es vacia
-                k = n->sudo[i][j]; // asignar el valor de la celda a k
-                row[i][k] = 1; // marcar el numero como existente en la fila
-                col[j][k] = 1; // marcar el numero como existente en la columna
-                box[i/3][j/3][k] = 1; // marcar el numero como existente en la submatriz
+            if(n->sudo[i][j] != 0) {
+                k = n->sudo[i][j];
+                row[i][k] = 1;
+                col[j][k] = 1;
+                box[i/3][j/3][k] = 1;
             }
         }    
     }
     return 1;
 }
 
-
 List* get_adj_nodes(Node* n){
-    List* list=createList(); // crear una nueva lista
-    Node* aux; // crear un nuevo nodo
-    int i, j, k; // variables para recorrer el sudoku
-    for(i = 0; i < 9; i++) { // recorrer el sudoku
-        for(j = 0; j < 9; j++) { // recorrer el sudoku
-            if(n->sudo[i][j] == 0) { // si la celda es 0, es decir, vacia
-                for(k = 1; k <= 9; k++) { // probar con los numeros del 1 al 9
-                    aux = copy(n); // copiar el nodo actual
-                    aux->sudo[i][j] = k; // asignar el nuevo valor
-                    if(is_valid(aux)) { // si es valido, agregar a la lista
-                        pushBack(list, aux); // agregar el nodo a la lista
+    List* list=createList();
+    Node* aux;
+    int i, j, k;
+    for(i = 0; i < 9; i++) {
+        for(j = 0; j < 9; j++) {
+            if(n->sudo[i][j] == 0) {
+                for(k = 1; k <= 9; k++) {
+                    aux = copy(n);
+                    aux->sudo[i][j] = k;
+                    if(is_valid(aux)) {
+                        pushBack(list, aux);
                     }
                 }
-                return list; // retornar la lista
+                return list;
             }
         }
     }
-    return list; // si no hay celdas vacias, retornar la lista vacia
+    return list;
 }
-
 
 int is_final(Node* n){
     int i,j;
-    for(i = 0; i < 9; i++) { // recorrer el sudoku
-        for(j = 0; j < 9; j++) { // recorrer el sudoku
-            if(n->sudo[i][j] == 0) { // si la celda es 0, es decir, vacia
-                return 0; // retornar 0
+    for(i = 0; i < 9; i++) {
+        for(j = 0; j < 9; j++) {
+            if(n->sudo[i][j] == 0) {
+                return 0;
             }
         }
     }
@@ -107,31 +101,29 @@ int is_final(Node* n){
 }
 
 Node* DFS(Node* initial, int* cont){
-    List* stack = createStack(); // crear una nueva pila
-    push(stack, initial); // agregar el nodo inicial a la pila
-    Node* current; // crear un nuevo nodo
-    while(!is_empty(stack)) { // mientras la pila no este vacia
-        current = top(stack); // obtener el nodo actual
-        pop(stack); // eliminar el nodo actual de la pila
-        (*cont)++; // incrementar el contador
-        if(is_final(current)) { // si el nodo actual es la solucion
-            return current; // retornar el nodo actual
+    List* stack = createStack();
+    push(stack, initial);
+    Node* current;
+    while(!is_empty(stack)) {
+        current = top(stack);
+        pop(stack);
+        (*cont)++;
+        if(is_final(current)) {
+            return current;
         }
-        List* adj = get_adj_nodes(current); // obtener los nodos adyacentes
-        Node* aux; // crear un nuevo nodo
-        aux = first(adj); // obtener el primer nodo adyacente
-        while(aux != NULL) { // mientras haya nodos adyacentes
-            if(is_valid(aux)) { // si el nodo adyacente es valido
-                push(stack, aux); // agregar el nodo adyacente a la pila
+        List* adj = get_adj_nodes(current);
+        Node* aux;
+        aux = first(adj);
+        while(aux != NULL) {
+            if(is_valid(aux)) {
+                push(stack, aux);
             }
-            aux = next(adj); // obtener el siguiente nodo adyacente
+            aux = next(adj);
         }
-        clean(adj); // limpiar la lista de nodos adyacentes
+        clean(adj);
     }
     return NULL;
 }
-
-
 
 /*
 int main( int argc, char *argv[] ){
