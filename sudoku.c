@@ -65,6 +65,7 @@ int is_valid(Node* n){
                 row[i][k] = 1; // marcar el numero como existente en la fila
                 col[j][k] = 1; // marcar el numero como existente en la columna
                 box[i/3][j/3][k] = 1; // marcar el numero como existente en la submatriz
+            }
         }    
     }
     return 1;
