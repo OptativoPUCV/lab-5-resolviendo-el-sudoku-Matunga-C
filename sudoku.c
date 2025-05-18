@@ -99,11 +99,11 @@ int is_final(Node* n){
     for(i = 0; i < 9; i++) { // recorrer el sudoku
         for(j = 0; j < 9; j++) { // recorrer el sudoku
             if(n->sudo[i][j] == 0) { // si la celda es 0, es decir, vacia
-                return 1; // retornar 1
+                return 0; // retornar 0
             }
         }
     }
-    return 0;
+    return 1;
 }
 
 Node* DFS(Node* initial, int* cont){
