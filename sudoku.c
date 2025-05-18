@@ -56,8 +56,11 @@ int is_valid(Node* n){
         for(j = 0; j < 9; j++) { // recorrer el sudoku
             if(n->sudo[i][j] != 0) { // si la celda no es 0, es decir, no es vacia
                 k = n->sudo[i][j]; // asignar el valor de la celda a k
+                if(row[i][k] || col[j][k] || box[i/3][j/3][k]) { // si ya existe el numero en la fila, columna o submatriz
+                    return 0; // retornar 0
+                }
             }
-          }    
+        }    
     }
     return 1;
 }
