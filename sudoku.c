@@ -114,6 +114,9 @@ Node* DFS(Node* initial, int* cont){
         current = top(stack); // obtener el nodo actual
         pop(stack); // eliminar el nodo actual de la pila
         (*cont)++; // incrementar el contador
+        if(is_final(current)) { // si el nodo actual es la solucion
+            return current; // retornar el nodo actual
+        }
         
     return NULL;
 }
