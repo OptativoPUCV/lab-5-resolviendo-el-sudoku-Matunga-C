@@ -60,6 +60,8 @@ int is_valid(Node* n){
                     return 0; // retornar 0
                 }
             }
+            if(n->sudo[i][j] != 0) { // si la celda no es 0, es decir, no es vacia
+                k = n->sudo[i][j]; // asignar el valor de la celda a k
         }    
     }
     return 1;
